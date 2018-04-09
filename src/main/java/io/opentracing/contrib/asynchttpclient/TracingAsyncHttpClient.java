@@ -107,7 +107,7 @@ public class TracingAsyncHttpClient extends DefaultAsyncHttpClient {
 			ListenableFuture<T> lf = super.executeRequest(requestBuilder.build(),
 					new SpanAwareAsyncHandler<T>(handler, span, tracer));
 			traceFutures.add(lf.toCompletableFuture().whenComplete((t, throwable) -> {
-				span.finish();
+				span.finish();//This should be later than onCompleted???
 				clearFinished(traceFutures);
 			}));
 
